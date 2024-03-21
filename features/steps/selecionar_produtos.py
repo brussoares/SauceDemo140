@@ -14,17 +14,22 @@ def step_impl(context):
 
 @when(u'preencho os campos de login com usuario {usuario} e senha {senha}')
 def step_impl(context, usuario, senha):
-    context.driver.find_element(By.ID, "user name").send_keys(usuario)
-    context.driver.find_element(By.ID, "password").send.keys(senha)
-    context.driver.find.element(By.ID, "login-button").click()
+    context.driver.find_element(By.ID, "user-name").send_keys(usuario)
+    context.driver.find_element(By.ID, "password").send_keys(senha)
+    context.driver.find_element(By.ID, "login-button").click()
 
-@then(u'sou direcionado para pagina gome')
+@then(u'sou direcionado para pagina Home')
 def step_impl(context):
-    assert context.driver.find_element(By.CSS_SELECTOR, ".title"). text == "prducts"
-    time.sleep(2) # espera por 2 segundos - remover depois = alfinete
+    assert context.driver.find_element(By.CSS_SELECTOR, ".title"). text == "Products"
+    # time.sleep(2) # espera por 2 segundos - remover depois = alfinete
     
     # encerramento
 
     context.driver.quit()
 
-    
+    @then(u'exibe a mensagem de erro login')
+    def step_impl(context):
+        # validar a mensagem de erro
+        assert context.driver.find_element(By.CSS_SELECTOR, "h3").text == "Epic sadface: Username and password do not match any user in this service"
+   
+
